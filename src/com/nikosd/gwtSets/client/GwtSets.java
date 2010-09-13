@@ -59,7 +59,7 @@ public class GwtSets implements EntryPoint {
 
             public void onClick(ClickEvent event) {
 
-                addRow("-", 0);
+                addEmptyRow();
                 DeferredCommand.addCommand(new IncrementalCommand() {
 
                     static final int TOTAL_STEPS = 10;
@@ -316,9 +316,15 @@ public class GwtSets implements EntryPoint {
         return dummyValue;
     }
 
+    private void addEmptyRow() {
+        int numRows = grid.getRowCount();
+        grid.setText(numRows, 0, "------");
+        grid.setText(numRows, 1, "------");
+    }
+
     private void addRow(String description, int time) {
         int numRows = grid.getRowCount();
-        grid.setWidget(numRows, 0, new HTML(description + " : "));
-        grid.setWidget(numRows, 1, new HTML(String.valueOf(time)));
+        grid.setText(numRows, 0, description);
+        grid.setText(numRows, 1, String.valueOf(time));
     }
 }
